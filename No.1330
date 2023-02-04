@@ -15,7 +15,7 @@ public class Main {
         }else if ( A < B ) {
             System.out.println("<");
         }else if ( A == B ) {
-            System.out.println("=");
+            System.out.println("==");
         }
     }
 }
