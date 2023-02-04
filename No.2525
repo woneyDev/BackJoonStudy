@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int h = 0;
+        int m = 0;
+        int cookingTime = 0;
+        int OVERMIN = 0;
+
+        h = sc.nextInt();
+        m = sc.nextInt();
+        cookingTime = sc.nextInt();
+
+        m = m + cookingTime;
+
+        if ( m > 59 ) {
+            if ( m % 60 == 0 ) {
+                OVERMIN = 0;
+            }else {
+                OVERMIN = m % 60;
+            }
+            h = m/60 + h;
+            if ( h > 23 ) {
+                h = h - 24;
+            }
+            System.out.println(h + " " + OVERMIN);
+        } else {
+            System.out.println(h + " " + m);
+        }
+    }
+}
