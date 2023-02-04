@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int H = 0;
+        int M = 0;
+        int ALARM = 45;
+
+        H = sc.nextInt();
+        M = sc.nextInt();
+
+        if ( 0 <= H && H <= 23 && 0 <= M && M <= 59) {
+            if ( M - ALARM < 0 ) {
+                H = H --;
+                if ( H < 0 ) {
+                    H = 23;
+                }
+                M = 60 + M - ALARM;
+                System.out.println(H + " " + M );
+            }
+        }
+    }
+}
