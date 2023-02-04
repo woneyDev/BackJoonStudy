@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int A = sc.nextInt();
+        String B = sc.next();
+        int finalNum = 0;
+        String[] C = new String[B.length()];
+        int[] D = new int[B.length()];
+        int tenCnt = 10;
+
+        if ( B.length() > 1 ) {
+            for ( int i = 0; i < B.length(); i++ ) {
+                C[i] = B.substring(B.length()-(i+1), B.length()-i);
+                if ( i == 0 ) {
+                    D[i] = A * Integer.parseInt((C[i]));
+                    System.out.println(D[i]);
+                }else if ( i != 0) {
+                    tenCnt = (int) Math.pow(tenCnt, i);
+                    System.out.println(A * (Integer.parseInt((C[i]))));
+                    D[i] = A * (Integer.parseInt((C[i]))*tenCnt);
+                }
+                finalNum += D[i];
+            }
+            System.out.println(finalNum);
+        }
+    }
+}
