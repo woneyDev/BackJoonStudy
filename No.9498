@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int scoreNum = 0;
+
+        scoreNum = sc.nextInt();
+
+        if ( scoreNum <= 100 && scoreNum >= 90 ) {
+            System.out.println("A");
+        }else if ( scoreNum < 90 && scoreNum >= 80 ) {
+            System.out.println("B");
+        }else if ( scoreNum < 80 && scoreNum >= 70 ) {
+            System.out.println("C");
+        }else if ( scoreNum < 70 && scoreNum >= 60) {
+            System.out.println("D");
+        }else {
+            System.out.println("F");
+        }
+    }
+}
