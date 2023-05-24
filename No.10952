@@ -1,0 +1,31 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            ArrayList<Integer> arr = new ArrayList<Integer>();
+            while ( true ) {
+                String temp = br.readLine();
+                int a = Integer.parseInt(temp.split(" ")[0]);
+                int b = Integer.parseInt(temp.split(" ")[1]);
+                if ( a != 0 && b != 0 ) {
+                    arr.add(a + b);
+                }else {
+                    break;
+                }
+            }
+            for (Integer integer : arr) {
+                bw.append(Integer.toString(integer)).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
