@@ -1,0 +1,44 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str                  = br.readLine();
+            String num                  = "";
+
+            int N                       = Integer.parseInt(str.split(" ")[0]);
+            int M                       = Integer.parseInt(str.split(" ")[1]);
+            int[] arr                   = new int[N];
+
+            int i                       = 0;
+            int j                       = 0;
+            int k                       = 0;
+
+            for ( int l = 0; l < M; l ++ ) {
+                num                     = br.readLine();
+                i                       = Integer.parseInt(num.split(" ")[0]);
+                j                       = Integer.parseInt(num.split(" ")[1]);
+                k                       = Integer.parseInt(num.split(" ")[2]);
+
+                for ( int basket = (i-1); basket < (j); basket++ ) {
+                    arr[basket] = k;
+                }
+
+            }
+
+            for (int value : arr) {
+                bw.write(value + " ");
+            }
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
