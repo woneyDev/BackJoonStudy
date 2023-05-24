@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 // 통과 코드는 No.15552_2
 
 // 문제를 잘못이해했다
+// 첫 번째 입력창에서 T의 개수를 지정하고 두 번째 부터는 더할 값을 n + " " + n 으로 입력했어야 하는 문제였다
 // 아래 코드는 틀렸다
 
 public class Main {
