@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str = br.readLine();
+            int N = Integer.parseInt(str);
+            String[] sNum;
+            String f = "";
+            int cnt = 0;
+
+            String temp = br.readLine();
+            sNum = temp.split(" ").clone();
+
+            f = br.readLine();
+
+            for ( int i = 0; i < N; i ++ ) {
+                if ( sNum[i].equals(f) ) {
+                    cnt ++;
+                }
+            }
+
+            bw.write(cnt+"\n");
+            bw.flush();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
