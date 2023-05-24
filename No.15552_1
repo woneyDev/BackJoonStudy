@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 // 내 눈에는 이게 제일 나아보이지만 백준은 아니라함
 // 통과 코드는 No.15552_2
 
+// 문제를 잘못이해했다
+// 아래 코드는 틀렸다
+
 public class Main {
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
