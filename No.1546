@@ -1,0 +1,42 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str = br.readLine();
+            int N = Integer.parseInt(str);
+            int[] scoreArr = new int[N];
+            double sum = 0;
+            double highScore = 0;
+            double avgScore = 0;
+
+            String inputScore = br.readLine();
+            String[] scores = inputScore.split(" ");
+            for (int i = 0; i < N; i++) {
+                scoreArr[i] = Integer.parseInt(scores[i]);
+            }
+
+            Arrays.sort(scoreArr);
+
+            highScore = scoreArr[N - 1];
+
+            for (int i = 0; i < scoreArr.length; i++) {
+                sum += scoreArr[i];
+            }
+
+            avgScore = (sum / highScore * 100) / N;
+            bw.write(avgScore + "\n");
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
