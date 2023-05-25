@@ -1,0 +1,26 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String sentence         = br.readLine().trim();
+            int wordCnt             = sentence.split(" ").length;
+
+            if ( sentence.length() == 0 ) {
+                wordCnt             = 0;
+            }
+
+            bw.write(wordCnt + "\n");
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
