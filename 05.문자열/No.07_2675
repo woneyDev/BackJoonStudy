@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int T                   = Integer.parseInt(br.readLine());
+            int N                   = 0;
+            int R                   = 0;
+            int k                   = 0;
+
+            String S                = "";
+            String parseStr         = "";
+            String P                = "";
+
+            for ( int i = 0; i < T; i ++ ) {
+
+                S                   = br.readLine();
+                N                   = Integer.parseInt(S.split(" ")[0]);
+                parseStr            = S.split(" ")[1];
+                R                   = parseStr.length();
+
+                for ( int j = 0; j < R; j ++ ) {
+                    while (  k < N ) {
+                        k++;
+                        P           = parseStr.substring(j, j+1);
+                        bw.write(P);
+                    }
+                    k               = 0;
+                }
+                bw.append("\n");
+            }
+
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
