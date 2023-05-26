@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int num                     = 0;
+            int A                       = 0;
+            int B                       = 0;
+
+            String temp                 = "";
+            String sentence             = br.readLine().trim();
+            String[] arr                = sentence.split(" ");
+
+            for ( int i = 0; i < arr.length; i ++ ) {
+                num                     = Integer.parseInt(sentence.split(" ")[i]);
+                B                       = arr[i].length()-1;
+
+                while ( B >= 0 ) {
+                    temp                += (String.valueOf(arr[i].charAt(B)));
+                    B--;
+                }
+
+                if ( i == 0 ) {
+                    A                   = Integer.parseInt(temp);
+                }else {
+                    B                   = Integer.parseInt(temp);
+                }
+                temp                    = "";
+
+            }
+            if ( A < B ) {
+                bw.write(B + "\n");
+            }else {
+                bw.write(A + "\n");
+            }
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
