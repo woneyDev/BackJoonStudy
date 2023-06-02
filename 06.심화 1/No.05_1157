@@ -1,0 +1,60 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+
+            String str              = br.readLine().toLowerCase();
+            List<String> strList    = new ArrayList<>();
+            String getChar          = "";
+            String result           = "";
+
+            int cnt                 = 0;
+            int strCnt              = 0;
+            int prevCnt             = 0;
+
+            if ( "".equals(str) ) {
+                return;
+            }
+            for ( int i = 0; i < str.length(); i ++ ) {
+                strList.add(i, String.valueOf(str.charAt(i)));
+            }
+            while ( strList.size() != 0 ) {
+                getChar             = strList.get(0);
+                strList.remove(0);
+                prevCnt             = strCnt;
+                strCnt              = 1;
+                cnt                 = 0;
+
+                while (cnt != strList.size()) {
+                    if (getChar.equals(strList.get(cnt))) {
+                        strCnt++;
+                    }
+                    cnt++;
+                }
+                strList.removeAll(Collections.singleton(getChar));
+
+                if ( prevCnt < strCnt ) {
+                    result          = getChar.toUpperCase();
+                }else if ( prevCnt == strCnt ) {
+                    result          = "?";
+                }
+                bw.write(prevCnt);
+//                bw.write(strCnt + getChar + "\n");
+            }
+            bw.write(result);
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
