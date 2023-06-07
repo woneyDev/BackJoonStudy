@@ -1,0 +1,63 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            List<String> charList   = new ArrayList<>();
+            String str              = "";
+            String charAt           = "";
+            int result              = 0;
+
+            str                     = br.readLine();
+
+            while ( str.length() != 0 ) {
+
+                if ( !(str.startsWith("c=") || str.startsWith("c-") || str.startsWith("dz=") || str.startsWith("d-") ||
+                        str.startsWith("lj") || str.startsWith("nj") || str.startsWith("s=") || str.startsWith("z=") ) ) {
+                    
+                    charAt = String.valueOf(str.charAt(0));
+                    str = str.replaceFirst(charAt, "");
+                    result++;
+                    
+                }else if (str.startsWith("c=")) {
+                    str = str.replaceFirst("c=", "");
+                    result ++;
+                }else if (str.startsWith("c-")) {
+                    str = str.replaceFirst("c-", "");
+                    result++;
+                }else if (str.startsWith("dz=")) {
+                    str = str.replaceFirst("dz=", "");
+                    result++;
+                }else if (str.startsWith("d-")) {
+                    str = str.replaceFirst("d-", "");
+                    result++;
+                }else if (str.startsWith("lj")) {
+                    str = str.replaceFirst("lj", "");
+                    result++;
+                }else if (str.startsWith("nj")) {
+                    str = str.replaceFirst("nj", "");
+                    result++;
+                }else if (str.startsWith("s=")) {
+                    str = str.replaceFirst("s=", "");
+                    result++;
+                }else if (str.startsWith("z=")) {
+                    str = str.replaceFirst("z=", "");
+                    result++;
+                }
+            }
+            bw.write(result + "\n");
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
