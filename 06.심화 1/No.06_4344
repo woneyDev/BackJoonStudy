@@ -1,0 +1,54 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int C                   = 0;
+            int i                   = 0;
+            int j                   = 0;
+            int k                   = 0;
+            float sum               = 0;
+            int stdCnt              = 0;
+            float score             = 0;
+            float cnt               = 0;
+
+            String str              = "";
+            String[] parsingStr;
+            float result            = 0;
+
+            C                       = Integer.parseInt(br.readLine());
+
+            for ( i = 0; i < C; i ++ ) {
+                sum                 = 0;
+                cnt                 = 0;
+                str                 = br.readLine();
+                parsingStr          = str.split(" ");
+                stdCnt              = Integer.parseInt(parsingStr[0]);
+
+                for ( j = 1; j <= stdCnt; j++ ) {
+                    sum             += Integer.parseInt(parsingStr[j]);
+                }
+
+                result              = Float.parseFloat(String.format("%.3f", ( sum / stdCnt )));
+
+                for ( k = 1; k <= stdCnt; k ++ ) {
+                    score           = Integer.parseInt(parsingStr[k]);
+
+                    if ( score > result ) {
+                        cnt ++;
+                    }
+                }
+                bw.write(String.format("%.3f", ( cnt / stdCnt) * 100) + "%\n");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
