@@ -1,0 +1,62 @@
+package backJoon;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int N                   = 0;
+            int i                   = 0;
+            int j                   = 0;
+            int k                   = 0;
+            int l                   = 0;
+            int num                 = 0;
+            int prevNum             = 0;
+
+            String str              = "";
+            String charAt           = "";
+
+            List<String> strList    = new ArrayList<>();
+
+            N                       = Integer.parseInt(br.readLine());
+
+            for ( i = 0; i < N; i ++ ) {
+                str                 = br.readLine();
+                // 리스트에 문자 하나씩 넣기
+                for ( j = 0; j < str.length(); j ++ ) {
+                    strList.add(j, String.valueOf(str.charAt(j)));
+                }
+
+                k                   = 0;
+                // 리스트에서 하나씩 뽑아서 비교하기
+                while ( strList.size() != 0 ) {
+                    charAt              = strList.get(0);
+                    bw.write(charAt + "\n");
+                    strList.remove(0);
+                    prevNum             = k;
+
+                    for ( l = 0; l < strList.size(); l ++ ) {
+                        if ( strList.get(l).equals(charAt) ) {
+                            bw.write(l + " " + charAt + "\n");
+                        }
+                    }
+
+                    k ++;
+                }
+            }
+            bw.write(num + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
