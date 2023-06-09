@@ -1,0 +1,85 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int CLASSES             = 20;
+            int i                   = 0;
+
+            float score             = 0;
+            float sumScore          = 0;
+            float result            = 0;
+            float avrScore          = 0;
+
+            String str              = "";
+            String[] strArr         = null;
+
+            for ( i = 0; i < CLASSES; i ++ ) {
+
+                str                 = br.readLine();
+
+                strArr              = str.split(" ");
+                score               = Float.parseFloat(strArr[1]);
+
+                switch (strArr[2]) {
+                    case "A+" :
+                        avrScore    = 4.5F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "A0" :
+                        avrScore    = 4.0F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "B+" :
+                        avrScore    = 3.5F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "B0" :
+                        avrScore    = 3.0F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "C+" :
+                        avrScore    = 2.5F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "C0" :
+                        avrScore    = 2.0F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "D+" :
+                        avrScore    = 1.5F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "D0" :
+                        avrScore    = 1.0F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                    case "F" :
+                        avrScore    = 0.0F;
+                        sumScore    += score;
+                        result      += ( score * avrScore );
+                        break;
+                }
+            }
+
+            bw.write( String.format("%.6f", (result / sumScore)) );
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
