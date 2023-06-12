@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int N                   = 0;
+            int M                   = 0;
+            int cnt                 = 0;
+            int i                   = 0;
+            int j                   = 0;
+
+            String str              = "";
+            String[] strArr;
+
+            str                     = br.readLine();
+
+            N                       = Integer.parseInt(str.split(" ")[0]);
+            M                       = Integer.parseInt(str.split(" ")[1]);
+
+            int[][] A               = new int[N][M];
+            int[][] B               = new int[N][M];
+
+            while ( cnt != 2 * N ) {
+
+                str                 = br.readLine();
+                strArr              = str.split(" ");
+
+                if ( cnt < N ) {
+                    for ( j = 0; j < M; j ++ ) {
+                        A[i][j]     = Integer.parseInt(strArr[j]);
+                    }
+                } else {
+                    for ( j = 0; j < M; j ++ ) {
+                        B[i - N][j] = Integer.parseInt(strArr[j]);
+                    }
+                }
+                cnt++;
+                i++;
+            }
+
+            for ( i = 0; i < N; i ++ ) {
+                for ( j = 0; j < M; j ++ ) {
+                    bw.write( A[i][j] + B[i][j] + " ");
+                }
+                bw.write("\n");
+            }
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
