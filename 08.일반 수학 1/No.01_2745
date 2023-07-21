@@ -1,0 +1,38 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String B                = br.readLine();
+
+            int temp                = 1;
+            int result              = 0;
+            int N                   = 0;
+
+            N                       = Integer.parseInt(B.split(" ")[1]);
+            B                       = B.split(" ")[0];
+
+            for ( int i = B.length() - 1; i >= 0; i -- ) {
+                char crt = B.charAt(i);
+
+                if( 'A'<= crt && 'Z' >= crt ) {
+                    result += (crt - 'A' + 10) * temp;
+                }else {
+                    result += (crt - '0') * temp;
+                }
+                temp *= N;
+            }
+
+            bw.write(result + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
