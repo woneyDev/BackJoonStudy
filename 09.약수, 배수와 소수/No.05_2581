@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int M                       = Integer.parseInt(br.readLine());
+            int N                       = Integer.parseInt(br.readLine());
+            int sum                     = 0;
+
+            List<Integer> lst           = new ArrayList<>();
+
+            for ( int i = M; i <= N; i ++ ) {
+                if ( isPrime(i) ) {
+                    sum += i;
+                    lst.add(i);
+                }
+            }
+            if (!lst.isEmpty()) {
+                bw.write(sum + "\n" + lst.get(0));
+            }else {
+                bw.write("-1");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static boolean isPrime(int num) {
+        if ( num < 2 ) {
+            return false;
+        }
+        for ( int i = 2; i * i <= num; i++ ) {
+            if ( num % i == 0 ) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
