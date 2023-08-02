@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int n                       = 0;
+
+            while ( true ) {
+                
+                int cnt                 = 1;
+                int sum                 = 0;
+
+                List<Integer> lst       = new ArrayList<>();
+
+                n                       = Integer.parseInt(br.readLine());
+                
+                if ( n == -1 ) {
+                    break;
+                }
+                while (n >= cnt) {
+                    if (n % cnt == 0) {
+                        lst.add(cnt);
+                    }
+                    cnt++;
+                }
+                for (int i = 0; i < lst.size() - 1; i++) {
+                    sum += lst.get(i);
+                }
+                if (sum == n) {
+
+                    bw.write(sum + " = ");
+
+                    for (int j = 0; j < lst.size() - 1; j++) {
+                        if (j != lst.size() - 2) {
+                            bw.write(lst.get(j) + " + ");
+                        } else {
+                            bw.write(lst.get(j) + "\n");
+                        }
+                    }
+                } else {
+                    bw.write(n + " is NOT perfect.\n");
+                }
+            }
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
