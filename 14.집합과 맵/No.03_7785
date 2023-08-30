@@ -1,0 +1,38 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                    = Integer.parseInt(br.readLine());
+            HashMap<String, String> empMap = new HashMap<>();
+
+            for (int i = 0; i < size; i++) {
+                StringTokenizer st      = new StringTokenizer(br.readLine(), " ");
+                String empNm            = st.nextToken();
+                String action           = st.nextToken();
+
+                if ( empMap.containsKey(empNm) ) empMap.remove(empNm);
+                else empMap.put(empNm, action);
+            }
+
+            ArrayList<String> list = new ArrayList<String>(empMap.keySet());
+            Collections.sort(list, Collections.reverseOrder());
+
+            for ( String li : list ) bw.write(li + "\n");
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
