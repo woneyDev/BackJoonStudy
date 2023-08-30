@@ -1,0 +1,28 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str                  = br.readLine();
+            ArrayList<Integer> numLst   = new ArrayList<>();
+
+            for ( int i = 0; i < Integer.parseInt(str); i ++ ) numLst.add(Integer.parseInt(br.readLine()));
+
+            Collections.sort(numLst);
+
+            for ( int j = 0; j < numLst.size(); j ++ ) bw.write(numLst.get(j) + "\n");
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
