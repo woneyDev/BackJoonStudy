@@ -1,0 +1,38 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringBuilder[] person      = new StringBuilder[201];
+            StringBuilder sb            = new StringBuilder();
+
+            int size                    = Integer.parseInt(br.readLine());
+
+            for ( int i = 0; i < person.length; i ++ ) person[i] = new StringBuilder();
+
+            for(int i = 0; i < size; i++) {
+                StringTokenizer st      = new StringTokenizer(br.readLine(), " ");
+                int age                 = Integer.parseInt(st.nextToken());
+                String name             = st.nextToken();
+
+                person[age].append(age).append(" ").append(name).append("\n");
+            }
+
+            for ( StringBuilder val : person ) {
+                sb.append(val);
+            }
+
+            bw.write(String.valueOf(sb));
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
