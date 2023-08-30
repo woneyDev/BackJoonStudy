@@ -1,0 +1,44 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            HashMap<Integer, Integer> cardsMap = new HashMap<>();
+
+            int cardEA                  = Integer.parseInt(br.readLine());
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb            = new StringBuilder();
+
+            for ( int i = 0; i < cardEA; i ++ ) {
+                int tmp                 = Integer.parseInt(st.nextToken());
+                int find                = 0;
+
+                if ( cardsMap.get(tmp) != null ) find = cardsMap.get(tmp);
+                find ++;
+
+                cardsMap.put(tmp, find);
+            }
+            int sgCardEA                = Integer.parseInt(br.readLine());
+            st                          = new StringTokenizer(br.readLine());
+
+            for ( int j = 0; j < sgCardEA; j ++ ) {
+                int tmp                 = Integer.parseInt(st.nextToken());
+
+                if ( cardsMap.containsKey(tmp) ) sb.append(cardsMap.get(tmp)).append(" ");
+                else sb.append("0").append(" ");
+            }
+            bw.write(sb.toString());
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
