@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int x                       = 0;
+            int y                       = 0;
+
+            boolean trg                 = false;
+            
+            String str                  = br.readLine();
+
+            int a                       = Integer.parseInt(str.split(" ")[0]);
+            int b                       = Integer.parseInt(str.split(" ")[1]);
+            int c                       = Integer.parseInt(str.split(" ")[2]);
+            int d                       = Integer.parseInt(str.split(" ")[3]);
+            int e                       = Integer.parseInt(str.split(" ")[4]);
+            int f                       = Integer.parseInt(str.split(" ")[5]);
+
+            for ( x = -999; x < 1000; x ++ ) {
+                for ( y = -999; y < 1000; y ++ ) {
+                    if ( a * x + b * y == c && d * x + e * y == f ) {
+                        trg             = true;
+                        break;
+                    }
+                }
+                if ( trg ) break;
+            }
+            bw.write(x + " " + y + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
