@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            long size                   = Integer.parseInt(br.readLine());
+            long gcdNum                 = 0;
+            long cnt                    = 0;
+            long result                 = 0;
+
+            long[] trees                = new long[Math.toIntExact(size)];
+            long[] treeDist             = new long[Math.toIntExact(size - 1)];
+
+            for ( int i = 0; i < size; i ++ ) trees[i] = Integer.parseInt(br.readLine());
+
+            long min                    = Arrays.stream(trees).min().getAsLong();
+            long max                    = Arrays.stream(trees).max().getAsLong();
+
+            for ( int j = 1; j < size; j ++ ) treeDist[j - 1] = trees[j] - trees[j - 1];
+            for ( int k = 1; k < treeDist.length; k ++ ) {
+                if ( gcdNum == 0 ) gcdNum = gcd(treeDist[k - 1], treeDist[k]);
+                else gcdNum = gcd(gcdNum, treeDist[k]);
+            }
+
+            for ( long l = min; l <= max; l += gcdNum ) {
+                if ( trees[(int) cnt] != l ) result ++;
+                else cnt ++;
+            }
+
+            bw.write(result + "\n");
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    static long gcd(long a, long b) {
+        if (a % b == 0) return b;
+        return gcd(b, a % b);
+    }
+}
