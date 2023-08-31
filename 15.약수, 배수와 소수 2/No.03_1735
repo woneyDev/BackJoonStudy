@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb            = new StringBuilder();
+
+            long a                      = Long.parseLong(st.nextToken());
+            long b                      = Long.parseLong(st.nextToken());
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+
+            long c                      = Long.parseLong(st.nextToken());
+            long d                      = Long.parseLong(st.nextToken());
+
+            long gcdNum                 = b * d / gcd(b, d);
+
+            long result = (a * gcdNum / b) + (c * gcdNum / d);
+
+            sb.append(result / gcd(gcdNum, result)).append(" ").append(gcdNum / gcd(gcdNum, result));
+
+            bw.write(sb.toString());
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    static long gcd(long a, long b) {
+        if (a % b == 0) return b;
+        return gcd(b, a % b);
+    }
+}
