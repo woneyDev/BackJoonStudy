@@ -1,0 +1,53 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int cnt                     = 0;
+            int notListenedName         = Integer.parseInt(st.nextToken());
+            int notSeenName             = Integer.parseInt(st.nextToken());
+
+            ArrayList<String> nameLst   = new ArrayList<>();
+            ArrayList<String> resultLst = new ArrayList<>();
+
+            HashMap<String, Integer> nmMap = new HashMap<>();
+
+            while ( cnt < notListenedName + notSeenName ) {
+                String name             = br.readLine();
+                int firstRg             = 0;
+
+                if ( nmMap.get(name) != null )  firstRg = nmMap.get(name);
+                if ( firstRg == 0 )             nameLst.add(name);
+
+                firstRg ++;
+                cnt ++;
+
+                nmMap.put(name, firstRg);
+            }
+
+            for (String tmp : nameLst) {
+                if (nmMap.get(tmp) == 2) resultLst.add(tmp);
+            }
+            Collections.sort(resultLst);
+            bw.write( resultLst.size()+ "\n");
+
+            for (String result : resultLst) bw.write(result + "\n");
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
