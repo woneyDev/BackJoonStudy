@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int aSize                   = Integer.parseInt(st.nextToken());
+            int bSize                   = Integer.parseInt(st.nextToken());
+            int result                  = 0;
+
+            HashMap<Integer, Integer> aMap = new HashMap<>();
+            HashMap<Integer, Integer> bMap = new HashMap<>();
+
+            ArrayList<Integer> aLst     = new ArrayList<>();
+            ArrayList<Integer> bLst     = new ArrayList<>();
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+            for ( int i = 0; i < aSize; i ++ ) {
+                int aTmp                =  Integer.parseInt(st.nextToken());
+                aMap.put(aTmp, 1);
+                aLst.add(aTmp);
+            }
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+            for ( int j = 0; j < bSize; j ++ ) {
+                int bTmp                = Integer.parseInt(st.nextToken());
+                bMap.put(bTmp, 1);
+                bLst.add(bTmp);
+            }
+
+            for ( int k = 0; k < aSize; k ++ ) {
+                if ( bMap.containsKey(aLst.get(k)) && aMap.containsKey(aLst.get(k)) ) {
+                    aMap.put(aLst.get(k), aMap.get(aLst.get(k)) + 1);
+                    bMap.put(aLst.get(k), bMap.get(aLst.get(k)) + 1);
+                }
+            }
+            for ( int l = 0; l < aMap.size(); l ++ ) if ( aMap.get(aLst.get(l)) == 1 ) result ++;
+            for ( int m = 0; m < bMap.size(); m ++ ) if ( bMap.get(bLst.get(m)) == 1 ) result ++;
+
+            bw.write(result + "\n");
+            bw.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
