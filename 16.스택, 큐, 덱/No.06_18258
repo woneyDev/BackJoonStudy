@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                = Integer.parseInt(br.readLine());
+            int num                 = 0;
+            int back                = 0;
+            Queue<Integer> que      = new LinkedList<>();
+
+            for ( int i = 0; i < size; i ++ ) {
+                String tmp          = br.readLine();
+                String div          = tmp.split(" ")[0];
+
+                if ( "push".equals(div) ) num = Integer.parseInt(tmp.split(" ")[1]);
+                switch ( div ) {
+                    case "push" :
+                        back = num;
+                        que.offer(num);
+                        break;
+                    case "pop" :
+                        if ( !que.isEmpty() ) bw.write(que.poll() + "\n");
+                        else bw.write(-1 + "\n");
+                        break;
+                    case "size" : bw.write(que.size() + "\n"); break;
+                    case "empty" :
+                        if ( que.isEmpty() ) bw.write(1 + "\n");
+                        else bw.write(0 + "\n");
+                        break;
+                    case "front" :
+                        if ( que.isEmpty() ) bw.write(-1 + "\n");
+                        else bw.write(que.peek() + "\n");
+                        break;
+                    case "back" :
+                        if ( que.isEmpty() ) bw.write(-1 + "\n");
+                        else bw.write(back + "\n");
+                }
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
