@@ -1,0 +1,50 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Objects;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str              = "";
+
+            while ( true ) {
+
+                String result       = "";
+                str                 = br.readLine();
+
+                if ( ".".equals(str) ) break;
+
+                Stack<String> st    = new Stack<>();
+
+                for ( int i = 0; i < str.length(); i ++ ) {
+                    String tmp      = String.valueOf(str.charAt(i));
+
+                    if ( tmp.equals("(") || tmp.equals("[") ) {
+                        st.push(tmp);
+                    } else if ( tmp.equals(")") ) {
+                        if ( !st.empty() && Objects.equals(st.peek(), "(") ) st.pop();
+                        else result = "no";
+                    } else if ( tmp.equals("]") ) {
+                        if ( !st.empty() && Objects.equals(st.peek(), "[") ) st.pop();
+                        else result = "no";
+                    }
+
+                    if ( result.equals("no") ) break;
+                }
+                if ( result.isEmpty() && st.isEmpty() ) result = "yes";
+                else result = "no";
+
+                bw.write(result + "\n");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
