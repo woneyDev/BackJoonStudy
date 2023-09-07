@@ -1,0 +1,53 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                = Integer.parseInt(br.readLine());
+
+            Queue<Integer> que      = new LinkedList<>();
+            Stack<Integer> st       = new Stack<>();
+
+            StringTokenizer token   = new StringTokenizer(br.readLine()," ");
+
+            for ( int i = 0; i < size; i ++ ) que.offer(Integer.parseInt(token.nextToken()));
+
+            int booked              = 1;
+
+            while ( !que.isEmpty() ) {
+                if ( que.peek() == booked ) {
+                    que.poll();
+                    booked++;
+                } else if( !st.isEmpty() && st.peek() == booked ) {
+                    st.pop();
+                    booked ++;
+                }else {
+                    st.push(que.poll());
+                }
+            }
+            while ( !st.isEmpty() ) {
+                if ( st.peek() == booked ) {
+                    st.pop();
+                    booked ++;
+                } else {
+                    bw.write("Sad");
+                    return;
+                }
+            }
+            bw.write("Nice");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
