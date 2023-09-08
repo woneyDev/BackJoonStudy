@@ -1,0 +1,55 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int lnth                = Integer.parseInt(br.readLine());
+
+            int tmp                 = 0;
+            boolean[] qOrStk        = new boolean[lnth];
+            StringTokenizer st      = new StringTokenizer(br.readLine(), " ");
+            StringBuilder sb        = new StringBuilder();
+
+            Deque<Integer> deq      = new LinkedList<>();
+            ArrayList<Deque<Integer>> deqLst = new ArrayList<>();
+
+            for ( int i = 0; i < lnth; i ++ ) {
+                tmp                 = Integer.parseInt(st.nextToken());
+                if ( tmp == 1 ) qOrStk[i] = true;
+            }
+
+            st                      = new StringTokenizer(br.readLine(), " ");
+            for ( int j = 0; j < lnth; j ++ )  {
+                Deque<Integer> tmpDeq      = new ArrayDeque<>();
+                tmpDeq.offer(Integer.parseInt(st.nextToken()));
+                deqLst.add(tmpDeq);
+            }
+            lnth                    = Integer.parseInt(br.readLine());
+            st                      = new StringTokenizer(br.readLine(), " ");
+
+            for ( int k = 0; k < lnth; k ++ ) {
+                tmp                 = Integer.parseInt(st.nextToken());
+                for ( int l = 0; l < qOrStk.length; l ++ ) {
+                    if ( !qOrStk[l] ) {
+                        deq             = deqLst.get(l);
+                        deq.offer(tmp);
+                        tmp             = deq.pollFirst();
+                    }
+                }
+                sb.append(tmp);
+                if ( k < lnth - 1 ) sb.append(" ");
+            }
+            bw.write(sb.toString());
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
