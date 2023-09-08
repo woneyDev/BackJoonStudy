@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int lnth                = Integer.parseInt(br.readLine());
+            StringBuilder sb        = new StringBuilder();
+
+            String[] qOrStk         = br.readLine().split(" ");
+            String[] nums           = br.readLine().split(" ");
+
+            Deque<Integer> deq      = new ArrayDeque<>();
+
+            for ( int i = 0; i < lnth; i ++ ) {
+                if ( qOrStk[i].equals("0") ) deq.offer(Integer.parseInt(nums[i]));
+            }
+
+            lnth                    = Integer.parseInt(br.readLine());
+            String[] tmp            = br.readLine().split(" ");
+
+            for ( int j = 0; j < lnth; j ++ ) {
+                int result          = Integer.parseInt(tmp[j]);
+
+                deq.offerFirst(result);
+                sb.append(deq.pollLast());
+                if ( j < lnth - 1 ) sb.append(" ");
+            }
+            bw.write(sb.toString());
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
