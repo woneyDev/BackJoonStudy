@@ -1,0 +1,67 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                = Integer.parseInt(br.readLine());
+
+            int avg                 = 0;
+            int max                 = -4001;
+            int min                 = 4001;
+            int mid                 = 10000;
+            int mode                = 10000;
+            int mode_max            = 0;
+            int cnt                 = 0;
+
+            int[] arr               = new int[8001];
+
+            boolean trg             = false;
+
+            for ( int i = 0; i < size; i ++ ) {
+                int tmp             = Integer.parseInt(br.readLine());
+
+                avg                 += tmp;
+                if ( max < tmp ) max = tmp;
+                if ( min > tmp ) min = tmp;
+
+                arr[tmp + 4000] ++;
+            }
+
+            for ( int j = min + 4000; j <= max + 4000; j ++ ) {
+
+                if ( arr[j] > 0 ) {
+                    if ( cnt < (size + 1) / 2 ) {
+                        cnt         += arr[j];
+                        mid         = j - 4000;
+                    }
+
+                    if ( mode_max < arr[j] ) {
+                        mode_max    = arr[j];
+                        mode        = j - 4000;
+                        trg         = true;
+                    } else if ( mode_max == arr[j] ) {
+                        if ( trg ) {
+                            mode    = j - 4000;
+                            trg     = false;
+                        }
+                    }
+                }
+            }
+
+            bw.write(Math.round((float) avg / size) + "\n");
+            bw.write(mid + "\n");
+            bw.write(mode + "\n");
+            bw.write(max - min + "\n");
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
