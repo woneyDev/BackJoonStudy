@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st      = new StringTokenizer(br.readLine());
+
+            int size                = Integer.parseInt(st.nextToken());
+            int lnth                = Integer.parseInt(st.nextToken());
+
+            HashMap<String, Integer> numMap = new HashMap<>();
+            for ( int i = 0; i < size; i ++ ) {
+                String tmp          = br.readLine();
+
+                if ( tmp.length() < lnth ) continue;
+
+                if ( numMap.containsKey(tmp) ) numMap.put(tmp, numMap.get(tmp) + 1);
+                else numMap.put(tmp, 1);
+            }
+
+            List<Map.Entry<String,Integer>> list = new ArrayList<>(numMap.entrySet());
+            list.sort( (o1,o2) -> {
+                int x               = o2.getValue()-o1.getValue();
+                if ( x != 0 ) return x;
+                else {
+                    int wordLth         = o2.getKey().length() - o1.getKey().length();
+                    if ( wordLth != 0 ) return wordLth;
+                    else {
+                        int tmp     = o1.getKey().compareTo(o2.getKey());
+                        return tmp;
+                    }
+                }
+            });
+
+            for ( Map.Entry<String,Integer> s : list ) bw.append(s.getKey()).append("\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
