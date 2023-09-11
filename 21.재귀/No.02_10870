@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                = Integer.parseInt(br.readLine());
+            int cnt                 = 0;
+
+            long[] arr              = new long[size + 1];
+            long result              = fibonacci(cnt, size, arr);
+
+            bw.write(result + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    static long fibonacci(int cnt, int size, long[] arr) {
+        if ( cnt > size ) return arr[cnt - 1];
+        if ( cnt == 0 ) arr[cnt] = cnt;
+        if ( cnt == 1 ) arr[cnt] = cnt;
+        else if ( cnt > 1 ) arr[cnt] = arr[cnt - 2] + arr[cnt - 1];
+        cnt ++;
+        return fibonacci(cnt, size, arr);
+    }
+}
