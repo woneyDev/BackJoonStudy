@@ -1,0 +1,40 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int students                = Integer.parseInt(st.nextToken());
+            int size                    = Integer.parseInt(st.nextToken());
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+            for ( int i = 0; i < size; i ++ ) {
+                int target              = (int) Math.floor( (double) Integer.parseInt(st.nextToken()) / ((double) students / 100));
+
+                if ( target > 96 ) bw.write("9");
+                else if ( target > 89 ) bw.write("8");
+                else if ( target > 77 ) bw.write("7");
+                else if ( target > 60 ) bw.write("6");
+                else if ( target > 40 ) bw.write("5");
+                else if ( target > 23 ) bw.write("4");
+                else if ( target > 11 ) bw.write("3");
+                else if ( target > 4 ) bw.write("2");
+                else bw.write("1");
+
+                if ( i < size - 1 ) bw.write(" ");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
