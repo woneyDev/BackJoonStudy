@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int[][] background      = new int[101][101];
+            int result              = 0;
+
+            for ( int i = 0; i < 4; i ++ ) {
+
+                StringTokenizer st  = new StringTokenizer(br.readLine(), " ");
+
+                int xSize_1         = Integer.parseInt(st.nextToken());
+                int ySize_1         = Integer.parseInt(st.nextToken());
+                int xSize_2         = Integer.parseInt(st.nextToken());
+                int ySize_2         = Integer.parseInt(st.nextToken());
+
+                for ( int j = xSize_1; j < xSize_2; j ++ ) {
+                    for ( int k = ySize_1; k < ySize_2; k ++ ) background[j][k] = 1;
+                }
+            }
+
+            for ( int l = 0; l < background.length; l ++ ) {
+                for ( int m = 0; m < background[l].length; m ++ ) {
+                    if ( background[l][m] > 0 ) result ++;
+                }
+            }
+            bw.write(result + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
