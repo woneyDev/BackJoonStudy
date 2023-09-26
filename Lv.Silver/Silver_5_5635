@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                = Integer.parseInt(br.readLine());
+            int min                 = Integer.MAX_VALUE;
+            int max                 = Integer.MIN_VALUE;
+
+            String[] result         = new String[2];
+
+            HashMap<String, Integer> tmp = new HashMap<>();
+            ArrayList<String> tmpLst= new ArrayList<>();
+
+            for ( int i = 0; i < size; i ++ ) {
+                StringTokenizer st  = new StringTokenizer(br.readLine(), " ");
+
+                String name         = st.nextToken();
+                String day          = st.nextToken();
+                String month        = st.nextToken();
+                String year         = st.nextToken();
+
+                day                 = day.length() > 1 ? day : "0" + day;
+                month               = month.length() > 1 ? month : "0" + month;
+                tmpLst.add(name);
+                tmp.put(name, Integer.parseInt(year+month+day));
+            }
+
+            for ( int j = 0; j < tmpLst.size(); j ++ ) {
+                int birth           = tmp.get(tmpLst.get(j));
+
+                if ( birth < min ) {
+                    result[1]       = tmpLst.get(j);
+                    min             = birth;
+                }
+                if ( birth > max ) {
+                    result[0]       = tmpLst.get(j);
+                    max             = birth;
+                }
+            }
+
+            for ( int k = 0; k < result.length; k ++ ) bw.write(result[k] + "\n");
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
