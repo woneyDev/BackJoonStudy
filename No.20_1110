@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String num                  = br.readLine();
+            String tmp                  = num;
+
+            int cnt                     = 0;
+
+            if ( num.length() < 2 ) num = "0" + num;
+
+            while ( true ) {
+                cnt ++;
+                if ( tmp.length() < 2 ) tmp = "0" + tmp;
+                
+                int a                       = Integer.parseInt(String.valueOf(tmp.charAt(0)));
+                int b                       = Integer.parseInt(tmp) > 9 ? Integer.parseInt(String.valueOf(tmp.charAt(1))) : Integer.parseInt(tmp);
+                int x                       = a + b;
+                tmp                         = tmp.charAt(1)+ String.valueOf(String.valueOf(x).charAt(x > 9 ? 1 : 0));
+                
+                if ( tmp.equals(num) ) break;
+            }
+            bw.write(cnt + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
