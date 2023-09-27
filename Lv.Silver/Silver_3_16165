@@ -1,0 +1,50 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.TreeSet;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str              = br.readLine();
+            HashMap<String, TreeSet<String>> groups = new HashMap<>();
+            TreeSet<String> tmp;
+
+            int groupSize           = Integer.parseInt(str.split(" ")[0]);
+            int quizSize            = Integer.parseInt(str.split(" ")[1]);
+
+            for ( int i = 0; i < groupSize; i ++ ) {
+                String groupName    = br.readLine();
+                int memberSize      = Integer.parseInt(br.readLine());
+                tmp                 = new TreeSet<>();
+
+                for ( int j = 0; j < memberSize; j ++ ) tmp.add(br.readLine());
+                
+                groups.put(groupName, tmp);
+            }
+
+            for ( int k = 0; k < quizSize; k ++ ) {
+                String quiz         = br.readLine();
+                int type            = Integer.parseInt(br.readLine());
+
+                if ( type == 0 ) {
+                    tmp             = groups.get(quiz);
+                    for ( String memberName : tmp ) bw.write(memberName + "\n");
+
+                } else {
+                    for ( String groupName : groups.keySet() ) {
+                        if ( groups.get(groupName).contains(quiz) ) bw.write(groupName + "\n");
+                    }
+                }
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
