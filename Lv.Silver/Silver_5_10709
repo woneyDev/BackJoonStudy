@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st      = new StringTokenizer(br.readLine(), " ");
+
+            int x                   = Integer.parseInt(st.nextToken());
+            int y                   = Integer.parseInt(st.nextToken());
+
+            String[][] weather      = new String[x][y];
+
+            for ( int i = 0; i < x; i ++ ) {
+                weather[i]          = br.readLine().split("");
+            }
+
+            for ( int j = 0; j < weather.length; j ++ ) {
+                int degree          = -1;
+                boolean trg             = false;
+                for ( int k =0; k < weather[j].length; k ++ ) {
+
+                    if ( "c".equals(weather[j][k]) ) {
+                        trg = true;
+                        degree = 0;
+                        bw.write(String.valueOf(degree));
+                        if ( k < weather[j].length - 1 ) bw.append(" ");
+                        continue;
+                    }
+                    if ( !trg ) degree = -1;
+                    else degree ++;
+                    bw.write(String.valueOf(degree));
+                    if ( k < weather[j].length - 1 ) bw.append(" ");
+                }
+                bw.append("\n");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
