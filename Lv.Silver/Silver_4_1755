@@ -1,0 +1,82 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.TreeSet;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br      = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw      = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str              = br.readLine();
+            StringBuilder sb;
+
+            int start               = Integer.parseInt(str.split(" ")[0]);
+            int end                 = Integer.parseInt(str.split(" ")[1]);
+            int cnt                 = 0;
+
+            TreeSet<String> set     = new TreeSet<>();
+
+            for ( int i = start; i <= end; i ++ ) {
+                sb                  = new StringBuilder();
+                if ( i < 10 ) {
+                    sb.append(numToString(i));
+                } else {
+                    sb.append(numToString(Integer.parseInt(String.valueOf(String.valueOf(i).charAt(0)))));
+                    sb.append(numToString(Integer.parseInt(String.valueOf(String.valueOf(i).charAt(1)))));
+                }
+                set.add(sb.toString());
+            }
+            
+            sb                      = new StringBuilder();
+            
+            for ( String tmp : set ) {
+                sb.append(stringToNum(tmp));
+                cnt ++;
+                if ( cnt == 10 ) {
+                    cnt = 0;
+                    sb.append("\n");
+                } else sb.append(" ");
+            }
+            bw.write(sb.toString());
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String numToString(int a) {
+
+        switch ( a ) {
+            case 1 : return "one";
+            case 2 : return "two";
+            case 3 : return "three";
+            case 4 : return "four";
+            case 5 : return "five";
+            case 6 : return "six";
+            case 7 : return "seven";
+            case 8 : return "eight";
+            case 9 : return "nine";
+            case 0 : return "zero";
+        }
+        return "";
+    }
+
+    static String stringToNum(String str) {
+
+        if ( str.contains("one") )      str = str.replace("one", "1");
+        if ( str.contains("two") )      str = str.replace("two", "2");
+        if ( str.contains("three") )    str = str.replace("three", "3");
+        if ( str.contains("four") )     str = str.replace("four", "4");
+        if ( str.contains("five") )     str = str.replace("five", "5");
+        if ( str.contains("six") )      str = str.replace("six", "6");
+        if ( str.contains("seven") )    str = str.replace("seven", "7");
+        if ( str.contains("eight") )    str = str.replace("eight", "8");
+        if ( str.contains("nine") )     str = str.replace("nine", "9");
+        if ( str.contains("zero") )     str = str.replace("zero", "0");
+
+        return str;
+    }
+}
