@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int brokenString            = Integer.parseInt(st.nextToken());
+            int size                    = Integer.parseInt(st.nextToken());
+            int result                  = 0;
+
+            int[] setPrice              = new int[size];
+            int[] eachPrice             = new int[size];
+
+            for ( int i = 0; i < size; i ++ ) {
+                st                      = new StringTokenizer(br.readLine(), " ");
+                setPrice[i]             = Integer.parseInt(st.nextToken());
+                eachPrice[i]            = Integer.parseInt(st.nextToken());
+            }
+
+            Arrays.sort(setPrice);
+            Arrays.sort(eachPrice);
+
+            int setMin                  = setPrice[0];
+            int eachMin                 = eachPrice[0];
+
+            if ( eachMin * 6 < setMin ) setMin = eachMin * 6;
+
+            result                      = Math.min(setMin * (brokenString % 6 > 0 ? brokenString / 6 + 1 : brokenString / 6), setMin * (brokenString / 6) + eachMin * (brokenString % 6));
+
+            bw.write(result + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
