@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int size                    = Integer.parseInt(st.nextToken());
+            int goal                    = Integer.parseInt(st.nextToken());
+            int min                     = 0;
+            int max                     = 0;
+
+            int[] trees                 = new int[size];
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+
+            for ( int i = 0; i < size; i ++ ) {
+                trees[i]                = Integer.parseInt(st.nextToken());
+                if ( max < trees[i] ) max = trees[i];
+            }
+
+            while ( min < max ) {
+                int mid                 = (min + max) / 2;
+                long sum                = 0;
+                for ( int treeHeight : trees ) {
+                    if ( treeHeight - mid > 0 ) sum += (treeHeight - mid);
+                }
+
+                if ( sum < goal ) max   = mid;
+                else min                = mid + 1;
+            }
+            bw.write(min - 1 + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
