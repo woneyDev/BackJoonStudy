@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine());
+            int size                    = Integer.parseInt(st.nextToken());
+            int idx                     = Integer.parseInt(st.nextToken());
+
+            ArrayList<Integer> lst      = new ArrayList<>();
+            st                          = new StringTokenizer(br.readLine());
+
+            for ( int i = 0; i < size; i ++ ) lst.add(Integer.parseInt(st.nextToken()));
+
+            Collections.sort(lst);
+
+            bw.write(lst.get(idx - 1) + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
