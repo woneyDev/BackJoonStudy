@@ -1,0 +1,34 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int max                     = 0;
+            String str                  = br.readLine();
+            HashMap<String, Integer> map= new HashMap<>();
+
+            for ( int i = 0; i < str.length(); i ++ ) {
+                String tmp              = str.split("")[i];
+                if ( "6".equals(tmp) || "9".equals(tmp) ) tmp = "6";
+                map.put(tmp, map.get(tmp) == null ? 1 : map.get(tmp) + 1);
+            }
+
+            for ( String string : map.keySet() ) {
+                int a                   = map.get(string) % 2 != 0 ? map.get(string) / 2 + 1 : map.get(string) / 2;
+                if ( "6".equals(string) && max < a ) max = a;
+                else if ( !"6".equals(string) && max < map.get(string) ) max = map.get(string);
+            }
+            bw.write(max + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
