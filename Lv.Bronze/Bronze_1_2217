@@ -1,0 +1,30 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int size                    = Integer.parseInt(br.readLine());
+            int max                     = Integer.MIN_VALUE;
+
+            int[] rope                  = new int[size];
+
+            for ( int i = 0; i < size; i ++ ) rope[i] = Integer.parseInt(br.readLine());
+
+            Arrays.sort(rope);
+
+            for ( int j = 0; j < size; j ++ ) max = Math.max(max, rope[j] * (size - j));
+
+            bw.write(max + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
