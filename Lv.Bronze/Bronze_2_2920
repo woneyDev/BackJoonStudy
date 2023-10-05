@@ -1,0 +1,40 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer str         = new StringTokenizer(br.readLine(), " ");
+            String answer               = "";
+            int[] numArr                = new int[8];
+
+            for ( int i = 0; i < 8; i ++ ) numArr[i] = Integer.parseInt(str.nextToken());
+
+            for ( int j = 1; j < numArr.length; j ++ ) {
+
+                int trg                 = numArr[j] - numArr[j - 1];
+                if ( trg > 0 ) answer = "ascending";
+                else if ("ascending".equals(answer)) {
+                    answer = "mixed";
+                    break;
+                }
+
+                if ( trg < 0 ) answer = "descending";
+                else if ("descending".equals(answer)) {
+                    answer = "mixed";
+                    break;
+                }
+            }
+            bw.write(answer);
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
