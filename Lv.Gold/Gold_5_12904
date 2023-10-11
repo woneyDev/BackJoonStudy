@@ -1,0 +1,35 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            String str                  = br.readLine();
+            String goal                 = br.readLine();
+
+            boolean trg                 = true;
+
+            while ( true ) {
+
+                if ( str.length() == goal.length() ) {
+                    if ( !str.equals(goal) ) trg = false;
+                    break;
+                }
+
+                char chr                = goal.charAt(goal.length() - 1);
+                goal                    = goal.substring(0, goal.length() - 1);
+
+                if ( chr == 'B' ) goal  = new StringBuilder(goal).reverse().toString();
+            }
+            bw.write((trg ? 1 : 0) + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
