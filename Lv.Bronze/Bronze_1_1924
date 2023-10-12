@@ -1,0 +1,61 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int month                   = Integer.parseInt(st.nextToken());
+            int day                     = Integer.parseInt(st.nextToken());
+
+            bw.write(takeDayOfWeek(month, day));
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    static String takeDayOfWeek (int month, int day) {
+
+        LocalDate date                  = LocalDate.of(2007, month, day);
+
+        DayOfWeek dayOfWeek             = date.getDayOfWeek();
+        int dayOfWeekNumber             = dayOfWeek.getValue();
+
+        String result                   = "";
+
+        switch ( dayOfWeekNumber ) {
+            case 1:
+                result = "MON";
+                break;
+            case 2:
+                result = "TUE";
+                break;
+            case 3:
+                result = "WED";
+                break;
+            case 4:
+                result = "THU";
+                break;
+            case 5:
+                result = "FRI";
+                break;
+            case 6:
+                result = "SAT";
+                break;
+            case 7:
+                result = "SUN";
+                break;
+        }
+
+        return result;
+    }
+}
