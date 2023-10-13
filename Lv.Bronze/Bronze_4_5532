@@ -1,0 +1,28 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            int holidays                = Integer.parseInt(br.readLine());
+
+            int korean                  = Integer.parseInt(br.readLine());
+            int math                    = Integer.parseInt(br.readLine());
+
+            int koreanCnt               = Integer.parseInt(br.readLine());
+            int mathCnt                 = Integer.parseInt(br.readLine());
+
+            bw.write(holidays - Math.max(
+                                            (korean / koreanCnt) + (korean % koreanCnt > 0 ? 1 : 0), (math / mathCnt) + (math % mathCnt > 0 ? 1 : 0)
+                                            ) + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
