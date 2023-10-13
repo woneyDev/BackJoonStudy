@@ -1,0 +1,65 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Deque;
+import java.util.LinkedList;
+
+public class Main {
+    public static void main(String[] args) {
+        try (BufferedReader br          = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out))) {
+
+            Deque<Integer> deq          = new LinkedList<>();
+
+            int size                    = Integer.parseInt(br.readLine());
+
+            for ( int i = 0; i < size; i ++ ) {
+                int push                = 0;
+                String order            = br.readLine();
+                
+                if ( order.startsWith("push") ) {
+                    push                = Integer.parseInt(order.split(" ")[1]);
+                    order               = order.split(" ")[0];
+                }
+                
+                switch ( order ) {
+                    case "push_front" :
+                        deq.offerFirst(push);
+                        break;
+                    case "push_back" :
+                        deq.offerLast(push);
+                        break;
+                    case "pop_front" :
+                        if ( deq.isEmpty() ) bw.write("-1\n");
+                        else bw.write(deq.pop() + "\n");
+                        break;
+                    case "pop_back" :
+                        if ( deq.isEmpty() ) bw.write("-1\n");
+                        else {
+                            bw.write(deq.peekLast() + "\n");
+                            deq.removeLast();
+                        }
+                        break;
+                    case "size" :
+                        bw.write(deq.size() + "\n");
+                        break;
+                    case "empty" :
+                        bw.write(deq.isEmpty() ? "1\n" : "0\n");
+                        break;
+                    case "front" :
+                        if ( deq.isEmpty() ) bw.write("-1\n");
+                        else bw.write(deq.peek() + "\n");
+                        break;
+                    case "back" :
+                        if ( deq.isEmpty() ) bw.write("-1\n");
+                        else bw.write(deq.peekLast() + "\n");
+                }
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
