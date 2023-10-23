@@ -1,0 +1,64 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+
+    static int ovenSize, pizzaSize, start, end;
+    static int[] ovens, pizzas;
+
+    public static void main(String[] args) {
+        try ( BufferedReader br         = new BufferedReader(new InputStreamReader(System.in));
+              BufferedWriter bw         = new BufferedWriter(new OutputStreamWriter(System.out)) ) {
+
+            StringTokenizer st          = new StringTokenizer(br.readLine(), " ");
+
+            int min                     = Integer.MAX_VALUE;
+
+            ovenSize                    = Integer.parseInt(st.nextToken());
+            pizzaSize                   = Integer.parseInt(st.nextToken());
+
+            ovens                       = new int[ovenSize];
+            pizzas                      = new int[pizzaSize];
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+
+            for ( int i = 0; i < ovenSize; i ++ ) {
+                min                     = Math.min(Integer.parseInt(st.nextToken()), min);
+                ovens[i]                = min;
+            }
+
+            st                          = new StringTokenizer(br.readLine(), " ");
+
+            for ( int j = 0; j < pizzaSize; j ++ ) pizzas[j] = Integer.parseInt(st.nextToken());
+
+            start                       = 0;
+            end                         = ovenSize;
+
+            for ( int k = 0; k < pizzaSize; k ++ ) {
+                isAllowed(pizzas[k]);
+                end --;
+                
+                if ( end < 0 ) break;
+                
+                start                   = 0;
+            }
+
+            bw.write(end + 1 + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void isAllowed(int i) {
+        while ( start < end ) {
+            int mid                     = (start + end) / 2;
+            if ( ovens[mid] < i ) end   = mid;
+            else start                  = mid + 1;
+        }
+    }
+}
