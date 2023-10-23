@@ -1,0 +1,34 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try ( BufferedReader br         = new BufferedReader(new InputStreamReader(System.in));
+              BufferedWriter bw          = new BufferedWriter(new OutputStreamWriter(System.out)) ) {
+
+            int charSize                = Integer.parseInt(br.readLine());
+            int strLength               = Integer.parseInt(br.readLine());
+            int result                  = 0;
+            int cnt                     = 0;
+
+            char[] chars                = br.readLine().toCharArray();
+
+            for ( int i = 2; i < strLength; i ++ ) {
+                if ( chars[i] == 'I' && chars[i - 1] == 'O' && chars[i - 2] == 'I' ) {
+                    cnt ++;
+                    i ++;
+                } else cnt              = 0;
+
+                if ( cnt >= charSize ) result ++;
+            }
+
+            bw.write(result + "\n");
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
