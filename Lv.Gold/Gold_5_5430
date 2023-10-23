@@ -1,0 +1,77 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Deque;
+import java.util.LinkedList;
+
+public class Main {
+    public static void main(String[] args) {
+        try ( BufferedReader br         = new BufferedReader(new InputStreamReader(System.in));
+              BufferedWriter bw         = new BufferedWriter(new OutputStreamWriter(System.out)) ) {
+
+            int size                    = Integer.parseInt(br.readLine());
+
+            for ( int i = 0; i < size; i ++ ) {
+                char[] chars            = br.readLine().toCharArray();
+                int arrSize             = Integer.parseInt(br.readLine());
+
+                StringBuilder sb        = new StringBuilder("[");
+                String err              = "";
+                String tmp              = br.readLine();
+
+                tmp                     = tmp.substring(1, tmp.length() - 1);
+                String[] strArr         = tmp.split(",");
+
+                Deque<String> deq       = new LinkedList<>();
+
+                boolean trg             = true;
+
+                for ( int j = arrSize - 1; j >= 0; j -- ) deq.push(strArr[j]);
+
+                for ( int k = 0; k < chars.length; k ++ ) {
+
+                    if ( 'R' == chars[k] ) {
+                        trg = !trg;
+                    } else if ( 'D' == chars[k] ) {
+                        arrSize --;
+                        if ( trg ) {
+                            try {
+                                deq.pop();
+                            } catch ( Exception e ) {
+                                err     = "error";
+                                break;
+                            }
+                        } else {
+                            try {
+                                deq.removeLast();
+                            } catch ( Exception e ) {
+                                err     = "error";
+                                break;
+                            }
+                        }
+                    }
+                }
+                if ( err.isEmpty() ) {
+                    if ( trg ) {
+                        for ( int l = 0; l < arrSize; l ++ ) {
+                            sb.append(deq.pop());
+                            if ( l < arrSize - 1 ) sb.append(",");
+                        }
+                    } else {
+                        for ( int l = 0; l < arrSize; l ++ ) {
+                            sb.append(deq.pollLast());
+                            if ( l < arrSize - 1 ) sb.append(",");
+                        }
+                    }
+                    sb.append("]");
+                }
+                bw.write((err.isEmpty() ? String.valueOf(sb) : err) + "\n");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
