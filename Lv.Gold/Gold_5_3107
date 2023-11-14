@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) {
+        try ( BufferedReader br         = new BufferedReader(new InputStreamReader(System.in));
+              BufferedWriter bw         = new BufferedWriter(new OutputStreamWriter(System.out)) ) {
+
+            StringBuilder   sb          = new StringBuilder();
+            String[]        strArr      = br.readLine().split(":");
+
+            int             idx         = 0;
+            int             cnt         = 0;
+            int             arrLength   = strArr.length;
+
+            for ( String tmp : strArr ) {
+                if ( tmp.length() == 0 ) arrLength --;
+            }
+
+            while ( idx < strArr.length ) {
+                String tmp              = strArr[idx];
+
+                if ( tmp.length() == 0 && arrLength < 8 ) {
+                    sb.append("0000");
+                    sb.append(":");
+                    arrLength ++;
+                    cnt ++;
+                    
+                } else if ( tmp.length() == 0 ) {
+                    idx ++;
+                    
+                } else if ( tmp.length() != 0) {
+                    for ( int i = 0; i < ( 4 - tmp.length() ); i ++ ) sb.append("0");
+                    sb.append(tmp);
+                    idx ++;
+                    cnt ++;
+
+                    if ( cnt < 8 ) sb.append(":");
+                }
+            }
+            while ( cnt < 8 ) {
+                sb.append("0000");
+                cnt ++;
+
+                if ( cnt < 8 ) sb.append(":");
+            }
+            bw.write(String.valueOf(sb));
+            bw.flush();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
